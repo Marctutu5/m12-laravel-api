@@ -50,6 +50,12 @@ class User extends Authenticatable implements FilamentUser
         return $this->belongsTo(Role::class);
     }
 
+    // Agregar relación con Wallet
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);  // Asume que la tabla 'wallets' tiene 'user_id' como clave foránea
+    }
+    
     public function canAccessFilament() : bool
     {
         $roles = [Role::ADMIN, Role::EDITOR];

@@ -45,6 +45,11 @@ class TokenController extends Controller
         
         // $user->sendEmailVerificationNotification();
 
+        // Crear wallet para el nuevo usuario con un saldo inicial de 1000 coins
+        $user->wallet()->create([
+            'coins' => 1000
+        ]);
+
         return $this->_generateTokenResponse($user);
     }
 

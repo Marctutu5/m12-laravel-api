@@ -32,6 +32,14 @@ Route::middleware('auth:sanctum')->group(function () {
     // Token
     Route::get('user', [TokenController::class, 'user']);
     Route::post('logout', [TokenController::class, 'logout']);
+    
+    // Wallet Routes
+    Route::get('wallet', [WalletController::class, 'show']);
+    Route::post('wallet/update', [WalletController::class, 'update']);
+    
+    
+    
+    // OLD ROUTES
     // Files
     Route::apiResource('files', FileController::class);
     Route::post('files/{file}', [FileController::class, 'update_workaround'])
