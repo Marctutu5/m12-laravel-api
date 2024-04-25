@@ -11,6 +11,8 @@ use App\Http\Controllers\Api\VisibilityController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\WalletController;
+use App\Http\Controllers\Api\ItemController;
+use App\Http\Controllers\Api\BackpackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,12 +36,21 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user', [TokenController::class, 'user']);
     Route::post('logout', [TokenController::class, 'logout']);
     
-    // Wallet Routes
+    // Wallet
     Route::get('wallet', [WalletController::class, 'show']);
     Route::post('wallet/update', [WalletController::class, 'update']);
     
+    // Item
+    Route::get('items', [ItemController::class, 'index']); // Ruta para obtener todos los items
+    Route::get('items/{id}', [ItemController::class, 'show']); // Ruta para obtener un item específico
     
+    // Backpack
+    Route::get('backpacks', [BackpackController::class, 'index']);  // Para listar todas las backpacks
+    Route::get('backpack', [BackpackController::class, 'show']);  // Para mostrar la backpack de un usuario específico
+    Route::post('backpack/update', [BackpackController::class, 'update']); // Actualizar items de la backpack
+
     
+    ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // OLD ROUTES
     // Files
     Route::apiResource('files', FileController::class);

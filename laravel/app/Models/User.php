@@ -55,6 +55,11 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasOne(Wallet::class);  // Asume que la tabla 'wallets' tiene 'user_id' como clave foránea
     }
+
+    public function backpacks()
+    {
+        return $this->hasMany(Backpack::class);
+    }
     
     public function canAccessFilament() : bool
     {
