@@ -10,6 +10,7 @@ use App\Http\Controllers\Api\PlaceController;
 use App\Http\Controllers\Api\VisibilityController;
 use App\Http\Controllers\Api\CommentController;
 use App\Http\Controllers\Api\ReviewController;
+use App\Http\Controllers\Api\WalletController;
 
 /*
 |--------------------------------------------------------------------------
