@@ -15,4 +15,9 @@ class Item extends Model
     {
         return $this->hasManyThrough(Backpack::class, User::class);
     }
+
+    public function getPhotoAttribute($value)
+    {
+        return $value ? asset($value) : null; // URL completa img
+    }
 }
