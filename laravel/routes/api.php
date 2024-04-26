@@ -13,6 +13,8 @@ use App\Http\Controllers\Api\ReviewController;
 use App\Http\Controllers\Api\WalletController;
 use App\Http\Controllers\Api\ItemController;
 use App\Http\Controllers\Api\BackpackController;
+use App\Http\Controllers\Api\ListingController;
+use App\Http\Controllers\Api\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -48,6 +50,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('backpacks', [BackpackController::class, 'index']);  // Para listar todas las backpacks
     Route::get('backpack', [BackpackController::class, 'show']);  // Para mostrar la backpack de un usuario específico
     Route::post('backpack/update', [BackpackController::class, 'update']); // Actualizar items de la backpack
+    
+    // Listings
+    Route::get('listings', [ListingController::class, 'index']);  // Mostrar todos los listados
+    Route::post('listings', [ListingController::class, 'store']);  // Crear un nuevo listado
+    Route::get('listings/{id}', [ListingController::class, 'show']);  // Mostrar un listado específico
+    Route::delete('listings/{id}', [ListingController::class, 'destroy']);  // Eliminar un listado específico
+
+    // Transactions
+    Route::get('transactions', [TransactionController::class, 'index']);  // Mostrar todas las transacciones
+    Route::post('transactions', [TransactionController::class, 'store']);  // Registrar una nueva transacción
 
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

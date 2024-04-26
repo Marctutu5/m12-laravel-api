@@ -26,18 +26,33 @@ class ItemsTableSeeder extends Seeder
         ]);
 
         Item::create([
-            'name' => 'Hyper Potion',
+            'name' => 'Hyper',
             'photo' => 'storage/HyperPotion.jpg',
         ]);
 
         Item::create([
-            'name' => 'Maximum Potion',
+            'name' => 'Maximum',
             'photo' => 'storage/MaximumPotion.jpg',
         ]);
 
         Item::create([
-            'name' => 'Super Potion',
+            'name' => 'Super',
             'photo' => 'storage/SuperPotion.jpg',
+        ]);
+
+        Item::create([
+            'name' => 'Book',
+            'photo' => 'storage/book.jpg',
+        ]);
+
+        Item::create([
+            'name' => 'Key',
+            'photo' => 'storage/key.jpg',
+        ]);
+
+        Item::create([
+            'name' => 'Bicycle',
+            'photo' => 'storage/bicycle.jpg',
         ]);
 
         // Añade más objetos según tus necesidades
