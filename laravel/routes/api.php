@@ -15,6 +15,7 @@ use App\Http\Controllers\Api\ItemController;
 use App\Http\Controllers\Api\BackpackController;
 use App\Http\Controllers\Api\ListingController;
 use App\Http\Controllers\Api\TransactionController;
+use App\Http\Controllers\Api\UserPositionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -60,6 +61,11 @@ Route::middleware('auth:sanctum')->group(function () {
     // Transactions
     Route::get('transactions', [TransactionController::class, 'index']);  // Mostrar todas las transacciones
     Route::post('transactions', [TransactionController::class, 'store']);  // Registrar una nueva transacción
+
+    // UserPosition
+    Route::get('user-position', [UserPositionController::class, 'show']);  // Mostrar la posición del usuario autenticado
+    Route::post('user-position', [UserPositionController::class, 'update']);  // Actualizar la posición del usuario autenticado
+
 
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
