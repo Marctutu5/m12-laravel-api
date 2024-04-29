@@ -31,45 +31,48 @@ class TransactionController extends Controller
             'listing_id' => 'required|exists:listings,id',
             'quantity' => 'required|integer|min:1'
         ]);
-
+    
         DB::beginTransaction();
         try {
             $listing = Listing::findOrFail($request->listing_id);
             if ($listing->quantity < $request->quantity) {
                 return response()->json(['message' => 'Not enough stock'], 400);
             }
-
+    
             $buyer = $request->user();
             $seller = User::findOrFail($listing->seller_id);
-
+    
             if ($buyer->wallet->coins < $listing->price * $request->quantity) {
                 return response()->json(['message' => 'Insufficient funds'], 400);
             }
-
+    
             // Transferir monedas
             $buyer->wallet->subtractCoins($listing->price * $request->quantity);
             $seller->wallet->addCoins($listing->price * $request->quantity);
-
+    
             // Crear transacción
-            $transaction = Transaction::create([
+            $transaction = new Transaction([
                 'buyer_id' => $buyer->id,
                 'seller_id' => $seller->id,
                 'item_id' => $listing->item_id,
                 'quantity' => $request->quantity,
                 'price' => $listing->price * $request->quantity
             ]);
-
+            $transaction->save();
+    
             // Actualizar el listing
-            $listing->decrement('quantity', $request->quantity);
+            $listing->quantity -= $request->quantity;
+            $listing->save();
+    
             if ($listing->quantity == 0) {
                 $listing->delete();
             }
-
+    
             DB::commit();
             return response()->json(['message' => 'Purchase successful', 'transaction' => $transaction]);
         } catch (\Exception $e) {
             DB::rollBack();
             return response()->json(['message' => 'Purchase failed', 'error' => $e->getMessage()], 500);
         }
-    }
+    }    
 }
