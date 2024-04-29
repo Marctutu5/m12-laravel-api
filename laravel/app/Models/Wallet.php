@@ -40,6 +40,7 @@ class Wallet extends Model
             $this->save();
             return true;
         }
+        // Retorna false si no hay suficientes monedas
         return false;
     }
 }

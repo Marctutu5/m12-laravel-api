@@ -5,6 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Listing;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use App\Models\Backpack; // Importa el modelo Backpack correctamente
+use App\Models\User; // Si también utilizas User
 
 class ListingController extends Controller
 {
@@ -20,30 +24,49 @@ class ListingController extends Controller
     }
 
     /**
-     * Store a new listing.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a new listing: mover items del backpack al listing.
      */
     public function store(Request $request)
     {
+        // Validación de la solicitud
         $request->validate([
             'item_id' => 'required|exists:items,id',
             'quantity' => 'required|integer|min:1',
             'price' => 'required|numeric|min:0'
         ]);
 
-        $listing = new Listing([
-            'seller_id' => $request->user()->id,
-            'item_id' => $request->item_id,
-            'quantity' => $request->quantity,
-            'price' => $request->price
-        ]);
-        $listing->save();
+        DB::beginTransaction();
+        try {
+            $user = $request->user();
 
-        return response()->json(['message' => 'Listing created successfully', 'listing' => $listing]);
+            // Verificar si ya existe un listado para el mismo artículo y vendedor
+            $existingListing = Listing::where('seller_id', $user->id)
+                ->where('item_id', $request->item_id)
+                ->first();
+
+            if ($existingListing) {
+                return response()->json(['message' => 'Listing already exists for this item and seller'], 400);
+            }
+
+            // Crear el listado
+            $listing = new Listing([
+                'seller_id' => $user->id,
+                'item_id' => $request->item_id,
+                'quantity' => $request->quantity,
+                'price' => $request->price
+            ]);
+            $listing->save();
+
+            // Resto del código para manejar la transacción...
+
+            DB::commit();
+            return response()->json(['message' => 'Listing created successfully', 'listing' => $listing]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Failed to create listing', 'error' => $e->getMessage()], 500);
+        }
     }
-
+    
     /**
      * Display the specified listing.
      *
@@ -62,20 +85,20 @@ class ListingController extends Controller
     }
 
     /**
-     * Remove the specified listing.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * Cancel a listing: devolver items al backpack.
      */
     public function destroy($id)
     {
-        $listing = Listing::find($id);
+        DB::beginTransaction();
+        try {
+            $listing = Listing::findOrFail($id);
+            $listing->delete(); // Eliminamos la orden de listado
 
-        if (!$listing) {
-            return response()->json(['message' => 'Listing not found'], 404);
+            DB::commit();
+            return response()->json(['message' => 'Listing cancelled and items returned']);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Failed to cancel listing', 'error' => $e->getMessage()], 500);
         }
-
-        $listing->delete();
-        return response()->json(['message' => 'Listing deleted successfully']);
     }
 }

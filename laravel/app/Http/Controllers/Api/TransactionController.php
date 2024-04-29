@@ -5,6 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\Models\Listing;
+use App\Models\User;
 
 class TransactionController extends Controller
 {
@@ -20,29 +23,53 @@ class TransactionController extends Controller
     }
 
     /**
-     * Store a new transaction.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * Store a new transaction: gestionar la compra de items.
      */
     public function store(Request $request)
     {
         $request->validate([
-            'seller_id' => 'required|exists:users,id',
-            'item_id' => 'required|exists:items,id',
-            'quantity' => 'required|integer|min:1',
-            'price' => 'required|numeric'
+            'listing_id' => 'required|exists:listings,id',
+            'quantity' => 'required|integer|min:1'
         ]);
 
-        $transaction = new Transaction([
-            'buyer_id' => $request->user()->id,
-            'seller_id' => $request->seller_id,
-            'item_id' => $request->item_id,
-            'quantity' => $request->quantity,
-            'price' => $request->price
-        ]);
-        $transaction->save();
+        DB::beginTransaction();
+        try {
+            $listing = Listing::findOrFail($request->listing_id);
+            if ($listing->quantity < $request->quantity) {
+                return response()->json(['message' => 'Not enough stock'], 400);
+            }
 
-        return response()->json(['message' => 'Transaction completed successfully', 'transaction' => $transaction]);
+            $buyer = $request->user();
+            $seller = User::findOrFail($listing->seller_id);
+
+            if ($buyer->wallet->coins < $listing->price * $request->quantity) {
+                return response()->json(['message' => 'Insufficient funds'], 400);
+            }
+
+            // Transferir monedas
+            $buyer->wallet->subtractCoins($listing->price * $request->quantity);
+            $seller->wallet->addCoins($listing->price * $request->quantity);
+
+            // Crear transacción
+            $transaction = Transaction::create([
+                'buyer_id' => $buyer->id,
+                'seller_id' => $seller->id,
+                'item_id' => $listing->item_id,
+                'quantity' => $request->quantity,
+                'price' => $listing->price * $request->quantity
+            ]);
+
+            // Actualizar el listing
+            $listing->decrement('quantity', $request->quantity);
+            if ($listing->quantity == 0) {
+                $listing->delete();
+            }
+
+            DB::commit();
+            return response()->json(['message' => 'Purchase successful', 'transaction' => $transaction]);
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return response()->json(['message' => 'Purchase failed', 'error' => $e->getMessage()], 500);
+        }
     }
 }
