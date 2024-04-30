@@ -19,9 +19,13 @@ class TransactionController extends Controller
      */
     public function index()
     {
-        $transactions = Transaction::with(['buyer', 'seller', 'item'])->get();
+        $user = auth()->user(); // Asegurarse de que estás usando un guard que incluya autenticación de usuarios.
+        $transactions = Transaction::with(['buyer', 'seller', 'item'])
+                                   ->where('buyer_id', $user->id)
+                                   ->orWhere('seller_id', $user->id)
+                                   ->get();
         return response()->json($transactions);
-    }
+    }    
 
     /**
      * Store a new transaction: gestionar la compra de items.
