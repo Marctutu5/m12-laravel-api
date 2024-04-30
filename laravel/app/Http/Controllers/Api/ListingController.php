@@ -17,11 +17,22 @@ class ListingController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        $listings = Listing::with(['seller', 'item'])->get();
+        $user = auth()->user();
+        if ($request->has('exclude_own') && $request->exclude_own == 'true') {
+            $listings = Listing::with(['seller:id,name', 'item'])
+                               ->where('seller_id', '!=', $user->id)
+                               ->get();
+        } else {
+            $listings = Listing::with(['seller:id,name', 'item'])
+                               ->where('seller_id', $user->id)
+                               ->get();
+        }
+    
         return response()->json($listings);
     }
+       
 
     /**
      * Store a new listing: mover items del backpack al listing.

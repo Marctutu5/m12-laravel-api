@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\Listing;
 use App\Models\User;
+use App\Models\Backpack;
 
 class TransactionController extends Controller
 {
@@ -59,6 +60,13 @@ class TransactionController extends Controller
                 'price' => $listing->price * $request->quantity
             ]);
             $transaction->save();
+    
+            // Añadir items al backpack del comprador
+            $backpack = Backpack::firstOrCreate(
+                ['user_id' => $buyer->id, 'item_id' => $listing->item_id],
+                ['quantity' => 0]
+            );
+            $backpack->increment('quantity', $request->quantity);
     
             // Actualizar el listing
             $listing->quantity -= $request->quantity;
