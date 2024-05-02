@@ -17,6 +17,7 @@ use App\Http\Controllers\Api\ListingController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UserPositionController;
 use App\Http\Controllers\Api\FissurialController;
+use App\Http\Controllers\Api\AttackController;
 
 /*
 |--------------------------------------------------------------------------
@@ -70,6 +71,10 @@ Route::middleware('auth:sanctum')->group(function () {
     // Fissurials
     Route::get('/fissurials', [FissurialController::class, 'index']);
     Route::get('/fissurials/{id}', [FissurialController::class, 'show']);
+
+    // Attacks
+    Route::get('/attacks', [AttackController::class, 'index']);
+    Route::get('/attacks/{id}', [AttackController::class, 'show']);
 
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
