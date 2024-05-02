@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\MapItem;
 use App\Http\Resources\UserResource;
 
 class TokenController extends Controller
@@ -55,6 +56,15 @@ class TokenController extends Controller
             'y' => 64,
             'scene' => 1
         ]);
+
+        $mapItems = MapItem::all();
+
+        foreach ($mapItems as $mapItem) {
+            $user->userCollectedItems()->create([
+                'map_item_id' => $mapItem->id,
+                'collected' => 0,
+            ]);
+        }
 
         return $this->_generateTokenResponse($user);
     }

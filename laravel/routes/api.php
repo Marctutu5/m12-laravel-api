@@ -16,6 +16,8 @@ use App\Http\Controllers\Api\BackpackController;
 use App\Http\Controllers\Api\ListingController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UserPositionController;
+use App\Http\Controllers\Api\MapItemController;
+use App\Http\Controllers\Api\UserCollectedItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +67,14 @@ Route::middleware('auth:sanctum')->group(function () {
     // UserPosition
     Route::get('user-position', [UserPositionController::class, 'show']);  // Mostrar la posición del usuario autenticado
     Route::post('user-position', [UserPositionController::class, 'update']);  // Actualizar la posición del usuario autenticado
+
+    Route::get('/mapitems', [MapItemController::class, 'index']);
+    Route::get('/mapitems/{id}', [MapItemController::class, 'show']);
+    Route::post('/mapitems/{id}', [MapItemController::class, 'update']);
+
+    Route::get('/usercollecteditems', [UserCollectedItemController::class, 'index']);
+    Route::get('/usercollecteditems/{id}', [UserCollectedItemController::class, 'show']);
+    Route::post('/usercollecteditems/{id}', [UserCollectedItemController::class, 'update']);
 
 
     
