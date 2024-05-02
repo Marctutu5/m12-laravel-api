@@ -50,6 +50,12 @@ class TokenController extends Controller
             'coins' => 1000
         ]);
 
+        $user->position()->create([
+            'x' => 24,
+            'y' => 64,
+            'scene' => 1
+        ]);
+
         return $this->_generateTokenResponse($user);
     }
 
