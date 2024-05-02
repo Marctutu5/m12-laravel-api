@@ -16,6 +16,7 @@ use App\Http\Controllers\Api\BackpackController;
 use App\Http\Controllers\Api\ListingController;
 use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UserPositionController;
+use App\Http\Controllers\Api\FissurialController;
 
 /*
 |--------------------------------------------------------------------------
@@ -66,6 +67,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('user-position', [UserPositionController::class, 'show']);  // Mostrar la posición del usuario autenticado
     Route::post('user-position', [UserPositionController::class, 'update']);  // Actualizar la posición del usuario autenticado
 
+    // Fissurials
+    Route::get('/fissurials', [FissurialController::class, 'index']);
+    Route::get('/fissurials/{id}', [FissurialController::class, 'show']);
 
     
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
