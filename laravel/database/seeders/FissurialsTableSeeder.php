@@ -19,35 +19,35 @@ class FissurialsTableSeeder extends Seeder
             [
                 'name' => 'Drago',
                 'photo' => 'storage/Drago.jpg',
-                'original_life' => 5000,
+                'original_life' => 500,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'Fenix',
                 'photo' => 'storage/Fenix.jpg',
-                'original_life' => 7500,
+                'original_life' => 750,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'Leviathan',
                 'photo' => 'storage/Leviathan.jpg',
-                'original_life' => 10000,
+                'original_life' => 1000,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'Minotaur',
                 'photo' => 'storage/Minotaur.jpg',
-                'original_life' => 6000,
+                'original_life' => 600,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'Griffin',
                 'photo' => 'storage/Antidote.jpg',
-                'original_life' => 6500,
+                'original_life' => 650,
                 'created_at' => now(),
                 'updated_at' => now()
             ]
