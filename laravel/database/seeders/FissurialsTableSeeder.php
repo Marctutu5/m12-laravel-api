@@ -18,36 +18,36 @@ class FissurialsTableSeeder extends Seeder
         DB::table('fissurials')->insert([
             [
                 'name' => 'Drago',
-                'photo' => 'path/to/drago.jpg',
-                'original_life' => 100,
+                'photo' => 'storage/Drago.jpg',
+                'original_life' => 5000,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'Fenix',
-                'photo' => 'path/to/fenix.jpg',
-                'original_life' => 150,
+                'photo' => 'storage/Fenix.jpg',
+                'original_life' => 7500,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'Leviathan',
-                'photo' => 'path/to/leviathan.jpg',
-                'original_life' => 200,
+                'photo' => 'storage/Leviathan.jpg',
+                'original_life' => 10000,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'Minotaur',
-                'photo' => 'path/to/minotaur.jpg',
-                'original_life' => 120,
+                'photo' => 'storage/Minotaur.jpg',
+                'original_life' => 6000,
                 'created_at' => now(),
                 'updated_at' => now()
             ],
             [
                 'name' => 'Griffin',
-                'photo' => 'path/to/griffin.jpg',
-                'original_life' => 130,
+                'photo' => 'storage/Antidote.jpg',
+                'original_life' => 6500,
                 'created_at' => now(),
                 'updated_at' => now()
             ]

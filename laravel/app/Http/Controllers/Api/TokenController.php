@@ -56,6 +56,14 @@ class TokenController extends Controller
             'scene' => 1
         ]);
 
+        // Asignar un Fissurial aleatorio al usuario nuevo
+        $fissurialId = rand(1, 5); // Asume que tienes Fissurials con IDs 1 a 5
+        $fissurial = \App\Models\Fissurial::find($fissurialId);
+
+        // Crear la relación UserFissurial con current_life igual al original_life del Fissurial
+        $user->fissurials()->attach($fissurialId, ['current_life' => $fissurial->original_life]);
+
+
         return $this->_generateTokenResponse($user);
     }
 

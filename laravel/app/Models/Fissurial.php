@@ -11,5 +11,16 @@ class Fissurial extends Model
 
     protected $fillable = ['name', 'photo', 'original_life'];
 
-    // Aquí puedes añadir relaciones o métodos adicionales si es necesario
+    public function attacks()
+    {
+        return $this->belongsToMany(Attack::class, 'fissurials_attacks');
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'users_fissurials')
+                    ->withPivot('current_life')
+                    ->withTimestamps();
+    }
+
 }

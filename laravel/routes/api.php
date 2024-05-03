@@ -18,6 +18,9 @@ use App\Http\Controllers\Api\TransactionController;
 use App\Http\Controllers\Api\UserPositionController;
 use App\Http\Controllers\Api\FissurialController;
 use App\Http\Controllers\Api\AttackController;
+use App\Http\Controllers\Api\FissurialAttackController;
+use App\Http\Controllers\Api\UserFissurialController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -76,7 +79,16 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/attacks', [AttackController::class, 'index']);
     Route::get('/attacks/{id}', [AttackController::class, 'show']);
 
-    
+    // Fissurials Attacks
+    Route::get('/fissurial-attacks', [FissurialAttackController::class, 'index']);
+    Route::get('/fissurial-attacks/fissurial/{fissurial_id}', [FissurialAttackController::class, 'getByFissurial']);
+    Route::get('/fissurial-attacks/attack/{attack_id}', [FissurialAttackController::class, 'getByAttack']);
+
+    // Users Fissurials
+    Route::get('/user-fissurials', [UserFissurialController::class, 'index']);
+    Route::get('/user-fissurial', [UserFissurialController::class, 'show']);
+    Route::post('/user-fissurial/update', [UserFissurialController::class, 'update']);
+
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // OLD ROUTES
     // Files

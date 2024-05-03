@@ -65,6 +65,13 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasMany(Backpack::class);
     }
+
+    public function fissurials()
+    {
+        return $this->belongsToMany(Fissurial::class, 'users_fissurials', 'user_id', 'fissurials_id')
+                    ->withPivot('current_life')
+                    ->withTimestamps();
+    }
     
     public function canAccessFilament() : bool
     {
