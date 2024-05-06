@@ -57,15 +57,6 @@ class TokenController extends Controller
             'scene' => 1
         ]);
 
-        $mapItems = MapItem::all();
-
-        foreach ($mapItems as $mapItem) {
-            $user->userCollectedItems()->create([
-                'map_item_id' => $mapItem->id,
-                'collected' => 0,
-            ]);
-        }
-
         return $this->_generateTokenResponse($user);
     }
 
