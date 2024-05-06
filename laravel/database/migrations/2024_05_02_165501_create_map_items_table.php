@@ -13,7 +13,8 @@ class CreateMapItemsTable extends Migration
             $table->foreign('item_id')->references('id')->on('items');
             $table->integer('x');
             $table->integer('y');
-            $table->string('scene');
+            $table->integer('scene');
+            $table->string('route');
             $table->timestamps();
         });
     }

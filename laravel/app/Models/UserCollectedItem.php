@@ -8,7 +8,7 @@ class UserCollectedItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['map_item_id', 'user_id', 'collected'];
+    protected $fillable = ['map_item_id', 'user_id'];
 
     public function user()
     {

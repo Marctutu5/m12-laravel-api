@@ -9,7 +9,7 @@ class MapItem extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['item_id', 'x', 'y', 'scene'];
+    protected $fillable = ['item_id', 'x', 'y', 'scene', 'route'];
 
     public function item()
     {

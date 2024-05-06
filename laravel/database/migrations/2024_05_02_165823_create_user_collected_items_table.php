@@ -13,7 +13,6 @@ class CreateUserCollectedItemsTable extends Migration
             $table->foreign('map_item_id')->references('id')->on('map_items');
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->boolean('collected')->default(false);
             $table->timestamps();
         });
     }

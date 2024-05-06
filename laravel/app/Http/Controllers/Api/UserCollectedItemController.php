@@ -57,4 +57,26 @@ class UserCollectedItemController extends Controller
 
         return response()->json(['message' => 'User collected item updated', 'user_collected_item' => $userCollectedItem]);
     }
+    /**
+     * Store a newly created collected item for the authenticated user.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        $user = $request->user();
+
+        // Aquí asumo que tienes un modelo llamado UserCollectedItem que representa la tabla de los items coleccionados por el usuario
+        // Debes ajustar el nombre del modelo si es diferente
+        $userCollectedItem = new UserCollectedItem();
+        $userCollectedItem->user_id = $user->id;
+        // Asigna el ID del item coleccionado proporcionado en la solicitud
+        $userCollectedItem->map_item_id = $request->map_item_id;
+        // Guarda el nuevo item coleccionado en la base de datos
+        $userCollectedItem->save();
+
+        // Retorna una respuesta JSON indicando que el item ha sido almacenado exitosamente
+        return response()->json(['message' => 'Item coleccionado exitosamente'], 201);
+    }
 }

@@ -73,6 +73,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/mapitems/{id}', [MapItemController::class, 'update']);
 
     Route::get('/usercollecteditems', [UserCollectedItemController::class, 'index']);
+    Route::post('/usercollecteditems', [UserCollectedItemController::class, 'store']);
     Route::get('/usercollecteditems/{id}', [UserCollectedItemController::class, 'show']);
     Route::post('/usercollecteditems/{id}', [UserCollectedItemController::class, 'update']);
 

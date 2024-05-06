@@ -19,6 +19,7 @@ class MapItemSeeder extends Seeder
             'x' => 264,
             'y' => 472,
             'scene' => 1,
+            'route' => 'potions',
         ]);
 
         MapItem::create([
@@ -26,6 +27,7 @@ class MapItemSeeder extends Seeder
             'x' => 408,
             'y' => 120,
             'scene' => 1,
+            'route' => 'fruits',
         ]);
 
         MapItem::create([
@@ -33,6 +35,7 @@ class MapItemSeeder extends Seeder
             'x' => 504,
             'y' => 312,
             'scene' => 1,
+            'route' => 'potions',
         ]);
 
         MapItem::create([
@@ -40,6 +43,7 @@ class MapItemSeeder extends Seeder
             'x' => 584,
             'y' => 456,
             'scene' => 1,
+            'route' => 'potions',
         ]);
 
         MapItem::create([
@@ -47,6 +51,7 @@ class MapItemSeeder extends Seeder
             'x' => 200,
             'y' => 152,
             'scene' => 1,
+            'route' => 'potions',
         ]);
     }
 }
