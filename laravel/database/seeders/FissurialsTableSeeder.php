@@ -46,7 +46,7 @@ class FissurialsTableSeeder extends Seeder
             ],
             [
                 'name' => 'Griffin',
-                'photo' => 'storage/Antidote.jpg',
+                'photo' => 'storage/Griffin.jpg',
                 'original_life' => 650,
                 'created_at' => now(),
                 'updated_at' => now()

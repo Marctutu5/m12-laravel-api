@@ -51,6 +51,11 @@ class TokenController extends Controller
             'coins' => 1000
         ]);
 
+        $user->backpacks()->create([
+            'item_id' => 1,
+            'quantity' => 1
+        ]);
+
         $user->position()->create([
             'x' => 24,
             'y' => 64,
