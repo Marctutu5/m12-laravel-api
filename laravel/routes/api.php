@@ -22,6 +22,7 @@ use App\Http\Controllers\Api\FissurialController;
 use App\Http\Controllers\Api\AttackController;
 use App\Http\Controllers\Api\FissurialAttackController;
 use App\Http\Controllers\Api\UserFissurialController;
+use App\Http\Controllers\Api\RechargeController;
 
 
 /*
@@ -99,6 +100,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/user-fissurials', [UserFissurialController::class, 'index']);
     Route::get('/user-fissurial', [UserFissurialController::class, 'show']);
     Route::post('/user-fissurial/update', [UserFissurialController::class, 'update']);
+
+    // Recharges
+    Route::get('/recharges', [RechargeController::class, 'index']);
+    Route::post('/recharges', [RechargeController::class, 'store']);
+    Route::get('/recharges/{id}', [RechargeController::class, 'show']);
+
+
 
     ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // OLD ROUTES
