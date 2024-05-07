@@ -60,6 +60,10 @@ class User extends Authenticatable implements FilamentUser
     {
         return $this->hasOne(UserPosition::class);
     }
+    public function userCollectedItems()
+    {
+        return $this->hasMany(UserCollectedItem::class);
+    }
 
     public function backpacks()
     {

@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Log;
 
 use App\Models\User;
 use App\Models\Role;
+use App\Models\MapItem;
 use App\Http\Resources\UserResource;
 
 class TokenController extends Controller
