@@ -15,7 +15,9 @@ class FissurialController extends Controller
      */
     public function index()
     {
-        $fissurials = Fissurial::all();
+        // Carga los fissurials y precarga los ataques relacionados
+        $fissurials = Fissurial::with('attacks')->get();
+        
         return response()->json($fissurials);
     }
 
@@ -27,7 +29,8 @@ class FissurialController extends Controller
      */
     public function show($id)
     {
-        $fissurial = Fissurial::find($id);
+        // Carga el fissurial específico y precarga los ataques relacionados
+        $fissurial = Fissurial::with('attacks')->find($id);
 
         if (!$fissurial) {
             return response()->json(['message' => 'Fissurial not found'], 404);
