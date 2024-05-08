@@ -20,7 +20,9 @@ class UserFissurialController extends Controller
     {
         // Muestra los registros de UserFissurial del usuario autenticado
         $user = $request->user();
-        $userFissurials = UserFissurial::where('user_id', $user->id)->with('fissurial')->get();
+        $userFissurials = UserFissurial::where('user_id', $user->id)
+                                       ->with(['fissurial.attacks']) // Incluye los ataques del fissurial
+                                       ->get();
 
         if ($userFissurials->isEmpty()) {
             return response()->json(['message' => 'No fissurials found for this user'], 404);
